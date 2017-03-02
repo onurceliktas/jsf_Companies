@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28.?ub.2017 15:15:41 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="corporation" name="com.companies.pojos.Companies" optimistic-lock="version" table="companies">
+    <id name="companyId" type="java.lang.Integer">
+      <column name="company_ID"/>
+      <generator class="identity"/>
+    </id>
+    <property name="companyName" type="string">
+      <column length="100" name="company_name"/>
+    </property>
+    <property name="companyAddress" type="string">
+      <column length="100" name="company_address"/>
+    </property>
+    <property name="companyWeb" type="string">
+      <column length="100" name="company_web"/>
+    </property>
+  </class>
+</hibernate-mapping>

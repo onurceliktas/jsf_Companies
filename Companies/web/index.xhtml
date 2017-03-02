@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Welcome</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:dataTable style="width: 840px;margin-left: 10px;margin-top: 10px;" var="Companies" value="#{demoBean.readCompanies()}" id="data" rows="7" paginator="true">
+                <p:column   headerText="Company ID" >
+                    <h:outputText  value="#{Companies.companyId}">
+                    </h:outputText>
+                </p:column>
+                
+                <p:column   headerText="Company Name" >
+                    <h:outputText  value="#{Companies.companyName}">
+                    </h:outputText>
+                </p:column>
+
+                <p:column   headerText="Company Address" >
+                    <h:outputText  value="#{Companies.companyAddress}">
+                    </h:outputText>
+                </p:column>
+                
+                <p:column  headerText="Company Web" >
+                    <h:outputText   value="#{Companies.companyWeb}">
+                    </h:outputText>
+                </p:column>
+                
+            </p:dataTable>
+            <br/>
+            
+            <p:panelGrid id="pg1" style="margin-left: 10px;float: left;" columns="2">
+                <p:outputLabel for="companyName" value="Company Name"/>
+                <p:inputText value="#{demoBean.company.companyName}" id="companyName"/>
+                <p:outputLabel for="companyAddress" value="Company Address"/>
+                <p:inputText value="#{demoBean.company.companyAddress}" id="companyAddress"/>
+                <p:outputLabel for="companyWeb" value="Company Web"/>
+                <p:inputText value="#{demoBean.company.companyWeb}" id="companyWeb"/>
+                <p:inputText placeholder="Company ID" value="#{demoBean.company.companyId}" style="width: 150px;"/>
+                <p:column>
+                    <p:commandButton value="Save" actionListener="#{demoBean.save()}" update="@all"/>
+                    <p:commandButton value="Update" style="margin-left: 10px;" actionListener="#{demoBean.update()}"   update="@all"/>
+                    <p:commandButton value="Delete" actionListener="#{demoBean.delete()}" style="margin-left: 10px;" update="@all"/>
+                </p:column>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
