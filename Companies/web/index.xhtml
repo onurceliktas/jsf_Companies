@@ -8,14 +8,14 @@
         <title>Welcome</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:dataTable style="width: 840px;margin-left: 10px;margin-top: 10px;" var="Companies" value="#{demoBean.readCompanies()}" id="data" rows="7" paginator="true">
-                <p:column   headerText="Company ID" >
+        <h:form id="viewForm">
+            <p:dataTable style="width: auto;margin-left: 10px;margin-top: 10px;"  var="Companies" value="#{demoBean.readCompanies()}" id="data" rows="7" paginator="true"   >
+                <p:column headerText="Company ID">
                     <h:outputText  value="#{Companies.companyId}">
                     </h:outputText>
                 </p:column>
-                
-                <p:column   headerText="Company Name" >
+
+                <p:column   headerText="Company Name"  >
                     <h:outputText  value="#{Companies.companyName}">
                     </h:outputText>
                 </p:column>
@@ -24,15 +24,25 @@
                     <h:outputText  value="#{Companies.companyAddress}">
                     </h:outputText>
                 </p:column>
-                
+
                 <p:column  headerText="Company Web" >
                     <h:outputText   value="#{Companies.companyWeb}">
                     </h:outputText>
                 </p:column>
-                
+
+                <p:column  headerText="Company City" >
+                    <h:outputText   value="#{Companies.companyCity}">
+                    </h:outputText>
+                </p:column>
+
+                <p:column  headerText="Company District" >
+                    <h:outputText   value="#{Companies.companyDistrict}">
+                    </h:outputText>
+                </p:column>
+
             </p:dataTable>
             <br/>
-            
+
             <p:panelGrid id="pg1" style="margin-left: 10px;float: left;" columns="2">
                 <p:outputLabel for="companyName" value="Company Name"/>
                 <p:inputText value="#{demoBean.company.companyName}" id="companyName"/>
@@ -40,7 +50,28 @@
                 <p:inputText value="#{demoBean.company.companyAddress}" id="companyAddress"/>
                 <p:outputLabel for="companyWeb" value="Company Web"/>
                 <p:inputText value="#{demoBean.company.companyWeb}" id="companyWeb"/>
-                <p:inputText placeholder="Company ID" value="#{demoBean.company.companyId}" style="width: 150px;"/>
+
+                <p:outputLabel for="companyCity" value="Company City"/>
+               
+                <p:selectOneMenu id="companyCity"  value="#{demoBean.city}"  style="width:150px">
+                    <p:ajax listener="#{demoBean.onCityChange()}" update="companyDistrict" />
+                    <f:selectItem itemLabel="Select City"   value="#{demoBean.company.companyCity}" itemValue="#{demoBean.company.companyCity}" noSelectionOption="false" />
+                    <f:selectItems value="#{demoBean.cities}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="companyDistrict" value="Company District"/>
+                <p:selectOneMenu id="companyDistrict" value="#{demoBean.company.companyDistrict}" style="width:150px">
+                    <f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{demoBean.districts}" />
+                </p:selectOneMenu>
+
+
+                <p:column >
+
+                    <p:inputText id="companyId" placeholder="Company ID"  value="#{demoBean.company.companyId}" style="width: 150px;"/>
+                  
+                    <p:commandButton value="Show" actionListener="#{demoBean.filterCompanies()}" update="data"/>
+                </p:column>
                 <p:column>
                     <p:commandButton value="Save" actionListener="#{demoBean.save()}" update="@all"/>
                     <p:commandButton value="Update" style="margin-left: 10px;" actionListener="#{demoBean.update()}"   update="@all"/>
@@ -48,6 +79,7 @@
                 </p:column>
             </p:panelGrid>
         </h:form>
+
     </h:body>
 </html>
 
