@@ -61,7 +61,7 @@ public class Login implements Serializable {
 //                            "You will be redirected!"));
             FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "index.xhtml");
 
-            return "index";
+           return "index";
 
         } else {
             FacesContext.getCurrentInstance().addMessage(

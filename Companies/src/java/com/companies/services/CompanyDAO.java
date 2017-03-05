@@ -6,7 +6,6 @@ import com.companies.pojos.Companies;
 import com.companies.util.HibernateUtil;
 import org.hibernate.Query;
 import com.companies.beans.DemoBean;
-import javax.print.DocFlavor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,6 +18,20 @@ public class CompanyDAO {
 
     private Integer companyId;
     private DemoBean dm;
+    private Companies company;
+
+    public CompanyDAO() {
+        dm = new DemoBean();
+        company = new Companies();
+    }
+
+    public Companies getCompany() {
+        return company;
+    }
+
+    public void setCompany(Companies company) {
+        this.company = company;
+    }
 
     public DemoBean getDm() {
         return dm;
@@ -41,8 +54,10 @@ public class CompanyDAO {
         sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
+
         session.save(company);
         ts.commit();
+
         company.setCompanyAddress("");
         company.setCompanyId(null);
         company.setCompanyName("");
@@ -56,7 +71,6 @@ public class CompanyDAO {
         sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction ts = session.beginTransaction();
-
         session.update(company);
         ts.commit();
         company.setCompanyAddress("");
@@ -93,19 +107,5 @@ public class CompanyDAO {
         ses.close();
         return list;
     }
-
-    public List<Companies> filterCompanies() {
-        List<Companies> list = new ArrayList<>();
-        Session ses = HibernateUtil.getSessionFactory().openSession();
-        ses.beginTransaction();
-        /////
-        Query qu = ses.createQuery("from Companies where company_ID like :companyId")
-                .setParameter("companyId", "%" + companyId + "%");
-        list = qu.list();
-        ses.getTransaction().commit();
-        ses.close();
-        return list;
-    }
-
 
 }

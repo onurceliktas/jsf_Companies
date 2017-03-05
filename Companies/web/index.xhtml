@@ -9,13 +9,15 @@
     </h:head>
     <h:body>
         <h:form id="viewForm">
-            <p:dataTable style="width: auto;margin-left: 10px;margin-top: 10px;"  var="Companies" value="#{demoBean.readCompanies()}" id="data" rows="7" paginator="true"   >
-                <p:column headerText="Company ID">
+            
+            <p:dataTable id="datatable" style="width: auto;margin-left: 10px;"  var="Companies" value="#{demoBean.readCompanies()}"  rows="6" paginator="true" filteredValue="#{demoBean.filteredCompanies}" emptyMessage="No company found" widgetVar="companiesTable" selectionMode="single" selection="#{demoBean.selectedCompany}" rowKey="#{Companies.companyId}">
+                <p:ajax event="rowSelect" listener="#{demoBean.onRowSelectCompany()}" update=":#{p:component('pg1')}"/>
+            <!--    <p:column headerText="Company ID" >
                     <h:outputText  value="#{Companies.companyId}">
                     </h:outputText>
-                </p:column>
+                </p:column>-->
 
-                <p:column   headerText="Company Name"  >
+                <p:column headerText="Company Name" filterBy="#{Companies.companyName}" filterMatchMode="contains" >
                     <h:outputText  value="#{Companies.companyName}">
                     </h:outputText>
                 </p:column>
@@ -43,43 +45,49 @@
             </p:dataTable>
             <br/>
 
-            <p:panelGrid id="pg1" style="margin-left: 10px;float: left;" columns="2">
-                <p:outputLabel for="companyName" value="Company Name"/>
+            <p:panelGrid id="pg1" style="margin-left: 10px;float: left; width: 500px;"   columns="2">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column>Company Information</p:column>
+                    </p:row></f:facet>
+                <p:outputLabel for="companyName" value="Company Name" style="font-weight: bolder;"/>
                 <p:inputText value="#{demoBean.company.companyName}" id="companyName"/>
-                <p:outputLabel for="companyAddress" value="Company Address"/>
+                <p:outputLabel for="companyAddress" value="Company Address" style="font-weight: bolder;"/>
                 <p:inputText value="#{demoBean.company.companyAddress}" id="companyAddress"/>
-                <p:outputLabel for="companyWeb" value="Company Web"/>
+                <p:outputLabel for="companyWeb" value="Company Web" style="font-weight: bolder;"/>
                 <p:inputText value="#{demoBean.company.companyWeb}" id="companyWeb"/>
 
-                <p:outputLabel for="companyCity" value="Company City"/>
-               
-                <p:selectOneMenu id="companyCity"  value="#{demoBean.city}"  style="width:150px">
-                    <p:ajax listener="#{demoBean.onCityChange()}" update="companyDistrict" />
-                    <f:selectItem itemLabel="Select City"   value="#{demoBean.company.companyCity}" itemValue="#{demoBean.company.companyCity}" noSelectionOption="false" />
+                <p:outputLabel for="companyCity" value="Company City" style="font-weight: bolder;"/>
+
+                <p:selectOneMenu id="companyCity"  value="#{demoBean.company.companyCity}"  style="width:150px">
+                    <p:ajax event="change" listener="#{demoBean.onCityChange()}" update="companyDistrict" />
+                    <f:selectItem itemLabel="Select City" noSelectionOption="true" />
                     <f:selectItems value="#{demoBean.cities}" />
                 </p:selectOneMenu>
 
-                <p:outputLabel for="companyDistrict" value="Company District"/>
+                <p:outputLabel for="companyDistrict" value="Company District" style="font-weight: bolder;"/>
+                
                 <p:selectOneMenu id="companyDistrict" value="#{demoBean.company.companyDistrict}" style="width:150px">
-                    <f:selectItem itemLabel="Select District" itemValue="" noSelectionOption="true" />
-                    <f:selectItems value="#{demoBean.districts}" />
+                    <f:selectItem itemLabel="Select District" noSelectionOption="true" />
+                    <f:selectItems value="#{demoBean.districts}"/>
                 </p:selectOneMenu>
 
 
                 <p:column >
 
-                    <p:inputText id="companyId" placeholder="Company ID"  value="#{demoBean.company.companyId}" style="width: 150px;"/>
-                  
-                    <p:commandButton value="Show" actionListener="#{demoBean.filterCompanies()}" update="data"/>
+               <!--     <p:inputText id="companyId" placeholder="Company ID"  value="#{demoBean.company.companyId}" style="width: 100px;"/>-->
+
                 </p:column>
                 <p:column>
                     <p:commandButton value="Save" actionListener="#{demoBean.save()}" update="@all"/>
-                    <p:commandButton value="Update" style="margin-left: 10px;" actionListener="#{demoBean.update()}"   update="@all"/>
+
+
+                    <p:commandButton id="buttonUpdate" value="Update" style="margin-left: 10px;" actionListener="#{demoBean.update()}" update="@all"/>
+
+
                     <p:commandButton value="Delete" actionListener="#{demoBean.delete()}" style="margin-left: 10px;" update="@all"/>
                 </p:column>
             </p:panelGrid>
         </h:form>
-
     </h:body>
 </html>
-
