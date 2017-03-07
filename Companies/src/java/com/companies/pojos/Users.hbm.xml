@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2017 1:10:23 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.companies.pojos.Users" table="Users" catalog="Corporation" optimistic-lock="version">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="string">
+            <column name="user_name" length="30" not-null="true" />
+        </property>
+        <property name="userUserName" type="string">
+            <column name="user_userName" length="20" not-null="true" />
+        </property>
+        <property name="userPw" type="string">
+            <column name="user_pw" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
