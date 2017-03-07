@@ -18,3 +18,11 @@ company_address varchar(100),
 company_web varchar(100)
 );
 ------------------------------------------------
+
+
+If you are using Linux and Netbeans IDE, you need to do following;
+
+- Open project,
+- Resolve problems,
+- Go to the file where Netbeans is installed,
+- ../netbeans-8.2/ide/modules/ext  and then select mysql-connector.
