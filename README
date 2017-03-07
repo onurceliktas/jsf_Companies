@@ -1,0 +1,24 @@
+create database Corporation;
+-----------------------------
+
+use corporation;
+
+-----------------------------
+
+CREATE TABLE Users(
+user_ID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+user_name nvarchar(30) NOT NULL,
+user_userName nvarchar(20) not null,
+user_pw nvarchar(10) not null
+);
+
+-----------------------------
+
+Create TABLE Companies(
+company_ID int unsigned auto_increment primary key,
+company_name varchar(100),
+company_address varchar(100),
+company_web varchar(100)
+);
+
+-----------------------------
